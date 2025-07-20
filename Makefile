@@ -17,6 +17,7 @@ SRCDIR = src
 OBJDIR = obj
 LIBDIR = lib
 JSONDIR = lib/json
+CURLDIR = lib/curl
 
 # Source file
 SRCS = $(wildcard $(SRCDIR)/*.cpp)
@@ -25,10 +26,10 @@ SRCS = $(wildcard $(SRCDIR)/*.cpp)
 OBJS = $(SRCS:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 
 # Include directories
-INCLUDES = -I$(SRCDIR) -I$(JSONDIR)
+INCLUDES = -I$(SRCDIR) -I$(JSONDIR) -I$(CURLDIR)
 
 # Library link
-LIBS = -L/usr/lib/x86_64-linux-gnu -lssl -lcrypto -ljsoncpp
+LIBS = -L/usr/lib/x86_64-linux-gnu -lssl -lcrypto -ljsoncpp -lcurl 
 
 all: $(TARGET)
 
