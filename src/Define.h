@@ -19,10 +19,14 @@
 //========== Status Define ==========//
 #define FAIL -1
 #define SUCCESS 0
+#define HTTP_STATUS 1
+#define HTTPS_STATUS 2
 
 //========== Message Define ==========//
 #define MSG_NORMAL_FAIL "Fail"
 #define MSG_NORMAL_SUCCESS "Success"
+
+#define CURL_MSG_INIT_FAIL "Libcurl init fail"
 
 
 
