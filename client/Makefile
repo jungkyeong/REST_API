@@ -15,9 +15,9 @@ TARGET = program-service
 # file root
 SRCDIR = src
 OBJDIR = obj
-LIBDIR = lib
-JSONDIR = lib/json
-CURLDIR = lib/curl
+LIBDIR = ../lib
+JSONDIR = ../lib/json
+CURLDIR = ../lib/curl
 
 # Source file
 SRCS = $(wildcard $(SRCDIR)/*.cpp)
