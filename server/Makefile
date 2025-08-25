@@ -1,6 +1,6 @@
 # Compiler settings
 CC = g++
-CFLAGS = -Wall -g -L$(JSONDIR)
+CFLAGS = -Wall -g -L$(JSONDIR) -DCROW_ENABLE_SSL
 
 # DEBUG print
 # 0: DEBUG NOT, 1: DEBUG MODE

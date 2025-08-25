@@ -21,10 +21,10 @@ int main() {
     std::string jsonBody = Json::writeString(writer, root);
 
     // request
-    restapireq.get_request("http://127.0.0.1:1234/get", jsonBody, response);
+    restapireq.get_request("https://127.0.0.1:1234/get", jsonBody, response);
     std::cout << "Server Response: " << response << std::endl;
 
-    restapireq.post_request("http://127.0.0.1:1234/post", jsonBody, response);
+    restapireq.post_request("https://127.0.0.1:1234/post", jsonBody, response);
     std::cout << "Server Response: " << response << std::endl;
 
     return 0;
