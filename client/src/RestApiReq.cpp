@@ -194,3 +194,153 @@ int RestApiReq::get_request(std::string ip, std::string json_data, std::string& 
     curl_easy_cleanup(curl);
     return res;
 }
+
+/**
+ * @brief PUT request
+ * @param ip URL
+ * @param json_data input message
+ * @param resp_msg output message
+ * @return Success 0 Fail else
+ */
+int RestApiReq::put_request(std::string ip, std::string json_data, std::string& resp_msg){
+
+    resp_msg.clear();
+
+    int protocol_status = check_protocol(ip);
+    
+    // Libcurl init
+    CURL* curl = curl_easy_init();
+    if(!curl) {
+        DBG_PRINT(CURL_MSG_INIT_FAIL"\n");
+        return FAIL;
+    }
+
+    struct curl_slist* headers = nullptr;
+    headers = curl_slist_append(headers, "Content-Type: application/json");
+
+    curl_easy_setopt(curl, CURLOPT_URL, ip.c_str());
+    curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json_data.c_str());
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &resp_msg);
+
+    if(protocol_status == HTTPS_STATUS){
+        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
+    }
+
+   // Get Data
+    CURLcode res = libcurl_res_get(curl);
+    if(res == CURLE_OK){
+        DBG_PRINT("Request PUT Success: %s \n", resp_msg.c_str());
+    } else {
+        DBG_PRINT("Request PUT Fail: %d \n", res);
+    }
+
+    // clear libcurl pointer
+    curl_slist_free_all(headers);
+    curl_easy_cleanup(curl);
+    return res;
+}
+
+/**
+ * @brief PATCH request
+ * @param ip URL
+ * @param json_data input message
+ * @param resp_msg output message
+ * @return Success 0 Fail else
+ */
+int RestApiReq::patch_request(std::string ip, std::string json_data, std::string& resp_msg){
+
+    resp_msg.clear();
+
+    int protocol_status = check_protocol(ip);
+    
+    // Libcurl init
+    CURL* curl = curl_easy_init();
+    if(!curl) {
+        DBG_PRINT(CURL_MSG_INIT_FAIL"\n");
+        return FAIL;
+    }
+
+    struct curl_slist* headers = nullptr;
+    headers = curl_slist_append(headers, "Content-Type: application/json");
+
+    curl_easy_setopt(curl, CURLOPT_URL, ip.c_str());
+    curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PATCH");
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json_data.c_str());
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &resp_msg);
+
+    if(protocol_status == HTTPS_STATUS){
+        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
+    }
+
+   // Get Data
+    CURLcode res = libcurl_res_get(curl);
+    if(res == CURLE_OK){
+        DBG_PRINT("Request PATCH Success: %s \n", resp_msg.c_str());
+    } else {
+        DBG_PRINT("Request PATCH Fail: %d \n", res);
+    }
+
+    // clear libcurl pointer
+    curl_slist_free_all(headers);
+    curl_easy_cleanup(curl);
+    return res;
+}
+
+/**
+ * @brief DELETE request
+ * @param ip URL
+ * @param json_data input message
+ * @param resp_msg output message
+ * @return Success 0 Fail else
+ */
+int RestApiReq::delete_request(std::string ip, std::string json_data, std::string& resp_msg){
+
+    resp_msg.clear();
+
+    int protocol_status = check_protocol(ip);
+    
+    // Libcurl init
+    CURL* curl = curl_easy_init();
+    if(!curl) {
+        DBG_PRINT(CURL_MSG_INIT_FAIL"\n");
+        return FAIL;
+    }
+
+    struct curl_slist* headers = nullptr;
+    headers = curl_slist_append(headers, "Content-Type: application/json");
+
+    curl_easy_setopt(curl, CURLOPT_URL, ip.c_str());
+    curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &resp_msg);
+
+    if(!json_data.empty()){
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json_data.c_str());
+    }
+
+    if(protocol_status == HTTPS_STATUS){
+        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
+    }
+
+   // Get Data
+    CURLcode res = libcurl_res_get(curl);
+    if(res == CURLE_OK){
+        DBG_PRINT("Request DELETE Success: %s \n", resp_msg.c_str());
+    } else {
+        DBG_PRINT("Request DELETE Fail: %d \n", res);
+    }
+
+    // clear libcurl pointer
+    curl_slist_free_all(headers);
+    curl_easy_cleanup(curl);
+    return res;
+}

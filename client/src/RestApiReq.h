@@ -64,6 +64,33 @@ public:
      */
     int get_request(std::string ip, std::string json_data, std::string& resp_msg);
 
+    /**
+     * @brief Patch request
+     * @param ip URL
+     * @param json_data input message
+     * @param resp_msg output message
+     * @return Success 0 Fail else
+     */
+    int patch_request(std::string ip, std::string json_data, std::string& resp_msg);
+
+    /**
+     * @brief Put request
+     * @param ip URL
+     * @param json_data input message
+     * @param resp_msg output message
+     * @return Success 0 Fail else
+     */
+    int put_request(std::string ip, std::string json_data, std::string& resp_msg);
+
+    /**
+     * @brief Delete request
+     * @param ip URL
+     * @param json_data input message
+     * @param resp_msg output message
+     * @return Success 0 Fail else
+     */
+    int delete_request(std::string ip, std::string json_data, std::string& resp_msg);
+
 
 };
 

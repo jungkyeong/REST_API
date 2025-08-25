@@ -56,6 +56,72 @@ int main() {
         return crow::response(output);
     });
 
+    // [PUT] Test Put
+    CROW_ROUTE(app, "/put").methods(crow::HTTPMethod::Put)
+    ([](const crow::request& req){
+        std::string key = req.url_params.get("key") ? req.url_params.get("key") : "";
+        std::string id  = req.url_params.get("id")  ? req.url_params.get("id")  : "";
+    
+        Json::Value req_json;
+        Json::CharReaderBuilder reader;
+        std::string errs;
+        std::istringstream s(req.body);
+        if (!Json::parseFromStream(reader, s, &req_json, &errs)) {
+            return crow::response(400, "Invalid JSON");
+        }
+    
+        Json::Value res_json;
+        res_json["response_msg"] = "PUT received";
+        res_json["key"] = key;
+        res_json["id"]  = id;
+        res_json["json_data"] = req_json;
+    
+        Json::StreamWriterBuilder writer;
+        std::string output = Json::writeString(writer, res_json);
+        return crow::response(output);
+    });
+
+    // [PATCH] Test Patch
+    CROW_ROUTE(app, "/patch").methods(crow::HTTPMethod::Patch)
+    ([](const crow::request& req){
+        std::string key = req.url_params.get("key") ? req.url_params.get("key") : "";
+        std::string id  = req.url_params.get("id")  ? req.url_params.get("id")  : "";
+
+        Json::Value req_json;
+        Json::CharReaderBuilder reader;
+        std::string errs;
+        std::istringstream s(req.body);
+        if (!Json::parseFromStream(reader, s, &req_json, &errs)) {
+            return crow::response(400, "Invalid JSON");
+        }
+
+        Json::Value res_json;
+        res_json["response_msg"] = "PATCH received";
+        res_json["key"] = key;
+        res_json["id"]  = id;
+        res_json["json_data"] = req_json;
+
+        Json::StreamWriterBuilder writer;
+        std::string output = Json::writeString(writer, res_json);
+        return crow::response(output);
+    });
+
+    // [DELETE] Test Delete
+    CROW_ROUTE(app, "/delete").methods(crow::HTTPMethod::Delete)
+    ([](const crow::request& req){
+        std::string key = req.url_params.get("key") ? req.url_params.get("key") : "";
+        std::string id  = req.url_params.get("id")  ? req.url_params.get("id")  : "";
+
+        Json::Value res_json;
+        res_json["response_msg"] = "DELETE received";
+        res_json["key"] = key;
+        res_json["id"]  = id;
+
+        Json::StreamWriterBuilder writer;
+        std::string output = Json::writeString(writer, res_json);
+        return crow::response(output);
+    });
+
     // server run
 #ifdef CROW_ENABLE_SSL
     app.ssl_file("cert/server.crt", "cert/server.key");
